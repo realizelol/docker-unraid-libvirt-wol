@@ -17,7 +17,8 @@ RUN rm -rf /var/cache/apk/*                                                     
     apk upgrade --latest --update-cache                                                                                                                     &&  \
     apk add --update-cache libxml2-dev python3-dev libffi-dev build-base bash curl                                                                          &&  \
     pip install --upgrade pip --no-cache-dir                                                                                                                &&  \
-    pip install --upgrade Cython pycparser cffi libvirt-python python-libpcap --no-cache-dir                                                                &&  \
+    pip install --upgrade Cython                                                                                                                            &&  \
+    pip install --upgrade pycparser cffi libvirt-python python-libpcap --no-cache-dir                                                                       &&  \
     apk remove build-base                                                                                                                                   &&  \
     pip cache purge                                                                                                                                         &&  \
     rm -rf /root/.cache /var/cache/apk/*                                                                                                                    &&  \
