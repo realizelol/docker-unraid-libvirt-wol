@@ -160,6 +160,9 @@ if __name__ == '__main__':
     netfilter = "udp port 9 or ether proto 0x0842"
 
     plen, t, buf = sniff(interface, filters=netfilter, count=-1, promisc=1)
+    logging.info("received[plen]: %s", plen)
+    logging.info("received[t]: %s", t)
+    logging.info("received[buf]: %s", buf)
     print("received[plen]: " + plen)
     print("received[t]: " + t)
     print("received[buf]: " + buf)
