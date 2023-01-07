@@ -32,4 +32,4 @@ VOLUME ["/var/run/libvirt/libvirt-sock"]
 EXPOSE 9/udp
 
 # entrypoint - always keep everything up2date and then start libvirtwol.py
-ENTRYPOINT /app/docker-entrypoint.sh python2 /app/libvirtwol.py enp0s17
+ENTRYPOINT /app/docker-entrypoint.sh python3 /app/libvirtwol.py enp0s17
