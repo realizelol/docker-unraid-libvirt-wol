@@ -31,6 +31,6 @@ VOLUME ["/var/run/libvirt/libvirt-sock"]
 EXPOSE 9/udp
 
 # entrypoint - always keep everything up2date
-ENTRYPOINT ["apk", "upgrade", "--latest", "--update-cache"]
+#CMD ["apk", "upgrade", "--latest", "--update-cache"]
 
-CMD ["/usr/bin/python", "/app/libvirt.py", "br0"]
+ENTRYPOINT ["/usr/bin/python", "/app/libvirt.py", "br0"]
