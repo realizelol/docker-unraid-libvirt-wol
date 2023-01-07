@@ -1,4 +1,4 @@
-name: unraid-libvirt-wol
+name: ci
 
 on:
   push:
@@ -29,5 +29,6 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
+          platforms: linux/amd64
           push: true
           tags: realizelol/unraid-libvirt-wol:latest
