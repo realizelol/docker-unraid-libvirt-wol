@@ -15,7 +15,7 @@ COPY ./app /app
 # install needed packages etc.
 RUN rm -rf /var/cache/apk/*                                                                                                                                 &&  \
     apk upgrade --latest --update-cache                                                                                                                     &&  \
-    apk add --update-cache libvirt libvirt-dev py3-libvirt libxml2-dev python3-dev libffi-dev libpcap-dev build-base bash                                   &&  \
+    apk add --update-cache libvirt libvirt-dev py3-libvirt libxml2-dev python3-dev libffi-dev libpcap libpcap-dev build-base bash                           &&  \
     pip install --upgrade pip --no-cache-dir                                                                                                                &&  \
     pip install --upgrade Cython --install-option="--no-cython-compile" --no-cache-dir                                                                      &&  \
     pip install --upgrade pycparser cffi pcap-ct python-libpcap libvirt-python --no-cache-dir                                                               &&  \
