@@ -19,7 +19,7 @@ RUN rm -rf /var/cache/apk/*                                                     
     pip install --upgrade pip --no-cache-dir                                                                                                                &&  \
     pip install --upgrade Cython --install-option="--no-cython-compile" --no-cache-dir                                                                      &&  \
     pip install --upgrade pycparser cffi python-libpcap --no-cache-dir                                                                                      &&  \
-    apk remove build-base                                                                                                                                   &&  \
+    apk del build-base                                                                                                                                      &&  \
     pip cache purge                                                                                                                                         &&  \
     rm -rf /root/.cache /var/cache/apk/*                                                                                                                    &&  \
     chmod +x /app/*.py /app/*.sh                                                                                                                            &&  \
