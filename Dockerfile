@@ -12,9 +12,8 @@ LABEL maintainer="realizelol"                                                   
 RUN rm -rf /var/cache/apk/*                                                                                                                                 &&  \
     apk upgrade --latest --update-cache                                                                                                                     &&  \
     apk add --update-cache libvirt-dev libxml2-dev curl                                                                                                     &&  \
-    pip install --upgrade pip                                                                                                                               &&  \
-    pip install --upgrade libpcap==1.10.0b5 libvirt-python==5.10.0 python-libpcap==0.1.4                                                                    &&  \
-    pip cache purge                                                                                                                                         &&  \
+    pip install --upgrade pip --no-cache-dir                                                                                                                &&  \
+    pip install --upgrade libpcap==1.10.0b5 libvirt-python==5.10.0 python-libpcap==0.1.4 --no-cache-dir                                                     &&  \
     rm -rf /root/.cache /var/cache/apk/*                                                                                                                    &&  \
     mkdir -p /app                                                                                                                                           &&  \
     curl -sSL https://raw.githubusercontent.com/dmacias72/unRAID-libvirtwol/master/source/libvirtwol/usr/local/emhttp/plugins/libvirtwol/scripts/libvirtwol.py  \
