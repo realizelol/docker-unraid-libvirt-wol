@@ -30,7 +30,7 @@ class LibVirtWakeOnLan:
     @staticmethod
     def StartServerByMACAddress(mac):
         conn = libvirt.open(None)
-        if conn is None:
+        if conn == None:
             logging.error('Failed to open connection to the hypervisor')
             sys.exit(1)
 
@@ -87,10 +87,10 @@ class LibVirtWakeOnLan:
 
                     newmac += byte
 
-                    if macpart is 6 and macaddress is None:
+                    if macpart == 6 and macaddress == None:
                         macaddress = newmac
 
-                    if macpart is 6:
+                    if macpart == 6:
                         #if macaddress != newmac:
                             #return None
                         newmac = ""
