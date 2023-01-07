@@ -197,7 +197,8 @@ if __name__ == '__main__':
     #print("received[buf]: " + data)
     #pdata = pktlen, data, timestamp
 
-    pack = recv(9, "192.168.9.246", 1024)
+    pack = recv
+    pack()
     while True:
         print(pack)
         logging("pack: %s", pack)
