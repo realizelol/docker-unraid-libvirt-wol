@@ -159,16 +159,17 @@ if __name__ == '__main__':
 #    p.setfilter('udp port 9 or ether proto 0x0842', 0, 0)
     netfilter = "udp port 9 or ether proto 0x0842"
 
-    plen, t, buf = sniff(interface, filters=netfilter, count=-1, promisc=1)
-    logging.info("received[plen]: %s", plen)
-    logging.info("received[t]: %s", t)
-    logging.info("received[buf]: %s", buf)
-    print("received[plen]: " + plen)
-    print("received[t]: " + t)
-    print("received[buf]: " + buf)
+    pktlen, timestamp, data = sniff(interface, filters=netfilter, count=-1, promisc=1)
+    logging.info("received[plen]: %s", pktlen)
+    logging.info("received[t]: %s", timestamp)
+    logging.info("received[buf]: %s", data)
+    print("received[plen]: " + pktlen)
+    print("received[t]: " + timestamp)
+    print("received[buf]: " + data)
+    #pdata = pktlen, data, timestamp
     while True:
         try:
-            wpcap(buf, LibVirtWakeOnLan.InspectIPPacket)
+            LibVirtWakeOnLan.InspectIPPacket(pktlen, data, timestamp)
         except KeyboardInterrupt:
             break
         except Exception:
