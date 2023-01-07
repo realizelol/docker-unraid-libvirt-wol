@@ -12,11 +12,12 @@ LABEL maintainer="realizelol"                                           \
 RUN rm -rf /var/cache/apk/*                                                                                                                                &&  \
     apk upgrade --latest --update-cache                                                                                                                    &&  \
     apk add --update-cache py-pip libvirt-dev libxml2-dev libpcap-dev curl                                                                                 &&  \
-    rm -rf /root/.cache /var/cache/apk/*                                                                                                                   &&  \
-    curl -sL https://raw.githubusercontent.com/dmacias72/unRAID-libvirtwol/master/source/libvirtwol/usr/local/emhttp/plugins/libvirtwol/scripts/libvirtwol.py  \
-      > /app/libvirt.py                                                                                                                                    &&  \
-    curl -sL https://raw.githubusercontent.com/dmacias72/unRAID-libvirtwol/master/source/libvirtwol/usr/local/emhttp/plugins/libvirtwol/scripts/lvwolutils.py  \
-      > /app/lvwolutils.py
+    rm -rf /root/.cache /var/cache/apk/*
+    #                                                                                                                   &&  \
+#    curl -sL https://raw.githubusercontent.com/dmacias72/unRAID-libvirtwol/master/source/libvirtwol/usr/local/emhttp/plugins/libvirtwol/scripts/libvirtwol.py  \
+#      > /app/libvirt.py                                                                                                                                    &&  \
+#    curl -sL https://raw.githubusercontent.com/dmacias72/unRAID-libvirtwol/master/source/libvirtwol/usr/local/emhttp/plugins/libvirtwol/scripts/lvwolutils.py  \
+#      > /app/lvwolutils.py
 #    curl -sL https://raw.githubusercontent.com/dmacias72/unRAID-libvirtwol/master/source/libvirtwol/usr/local/emhttp/plugins/libvirtwol/scripts/lvwolutils.pyc \
 #      > /app/lvwolutils.pyc
 
