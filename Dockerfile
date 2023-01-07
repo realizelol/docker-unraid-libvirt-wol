@@ -17,8 +17,8 @@ RUN rm -rf /var/cache/apk/*                                                     
       > /app/libvirt.py                                                                                                                                    &&  \
     curl -sL https://raw.githubusercontent.com/dmacias72/unRAID-libvirtwol/master/source/libvirtwol/usr/local/emhttp/plugins/libvirtwol/scripts/lvwolutils.py  \
       > /app/lvwolutils.py                                                                                                                                 &&  \
-    curl -sL https://raw.githubusercontent.com/dmacias72/unRAID-libvirtwol/master/source/libvirtwol/usr/local/emhttp/plugins/libvirtwol/scripts/lvwolutils.pyc \
-      > /app/lvwolutils.pyc
+#    curl -sL https://raw.githubusercontent.com/dmacias72/unRAID-libvirtwol/master/source/libvirtwol/usr/local/emhttp/plugins/libvirtwol/scripts/lvwolutils.pyc \
+#      > /app/lvwolutils.pyc
 
 WORKDIR /app
 COPY .  /app
