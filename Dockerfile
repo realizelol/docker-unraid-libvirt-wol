@@ -10,7 +10,7 @@ LABEL maintainer="realizelol"                                                   
       build-date=$BUILD_DATE
 
 # copy "app" content to container's /app
-COPY app/* /app
+COPY ./app /app
 
 # install needed packages etc.
 RUN rm -rf /var/cache/apk/*                                                                                                                                 &&  \
