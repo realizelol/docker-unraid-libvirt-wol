@@ -17,14 +17,13 @@
 #    dmacias - added fixes for ether proto 0x0842
 
 import sys
-#import pcap
 import socket
 import struct
 import string
 import libvirt
 import logging
 from xml.dom import minidom
-from pylibpcap import OpenPcap
+from pylibpcap.pcap import sniff, rpcap, wpcap
 
 class LibVirtWakeOnLan:
 
@@ -148,17 +147,22 @@ if __name__ == '__main__':
         sys.exit(0)
 
     interface = sys.argv[1]
-    p = OpenPcap("pcap.pcap", "a")
-    #net, mask = pcap.lookupnet(interface)
+#    p = pcap.pcapObject()
+    # Get device informations if possible (IP address assigned)
+#    try:
+#        net, mask = pcap.lookupnet(interface)
+#    except:
+#        net, mask = "192.168.8.0", "255.255.254.0"
     # set promiscuous to 1 so all packets are captured
-    p.open_live(interface, 1600, 1, 100)
+#    p.open_live(interface, 1600, 1, 100)
     # added support for ether proto 0x0842
-    p.setfilter('udp port 7 or udp port 9 or ether proto 0x0842', 0, 0)
-    p.write(buf)
+#    p.setfilter('udp port 9 or ether proto 0x0842', 0, 0)
+    netfilter = "udp port 9 or ether proto 0x0842"
 
+    plen, t, buf = sniff(interface, filters=netfilter, count=-1, promisc=1)
     while True:
         try:
-            p.dispatch(1, LibVirtWakeOnLan.InspectIPPacket)
+            wpcap(buf, LibVirtWakeOnLan.InspectIPPacket)
         except KeyboardInterrupt:
             break
         except Exception:
