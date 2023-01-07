@@ -13,7 +13,7 @@ RUN rm -rf /var/cache/apk/*                                                     
     apk upgrade --latest --update-cache                                                                                                                     &&  \
     apk add --update-cache libvirt-dev libxml2-dev libpcap-dev python-dev curl                                                                              &&  \
     pip install --upgrade pip --no-cache-dir                                                                                                                &&  \
-    pip install --upgrade Cython libpcap==1.10.0b5 libvirt-python==5.10.0 python-libpcap --no-cache-dir                                                     &&  \
+    pip install --upgrade Cython libpcap==1.10.0b5 libvirt-python==5.10.0 --no-cache-dir                                                                    &&  \
     pip cache purge                                                                                                                                         &&  \
     rm -rf /root/.cache /var/cache/apk/*                                                                                                                    &&  \
     mkdir -p /app                                                                                                                                           &&  \
