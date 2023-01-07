@@ -18,7 +18,6 @@ RUN rm -rf /var/cache/apk/*                                                     
     rm -rf /root/.cache /var/cache/apk/*                                                                                                                    &&  \
     mkdir -p /app
 
-WORKDIR    /app
 COPY app/* /app
 
 # volumes
@@ -30,4 +29,4 @@ EXPOSE 9/udp
 # entrypoint - always keep everything up2date
 #CMD ["apk", "upgrade", "--latest", "--update-cache"]
 
-ENTRYPOINT ["python2", "/app/libvirt.py", "enp0s17"]
+CMD ["python2", "/app/libvirt.py", "enp0s17"]
