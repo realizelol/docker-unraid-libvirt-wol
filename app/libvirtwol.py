@@ -148,7 +148,7 @@ if __name__ == '__main__':
 
     interface = sys.argv[1]
     p = OpenPcap("pcap.pcap", "a")
-    net, mask = pcap.lookupnet(interface)
+    net, mask = p.lookupnet(interface)
     # set promiscuous to 1 so all packets are captured
     p.open_live(interface, 1600, 1, 100)
     # added support for ether proto 0x0842
