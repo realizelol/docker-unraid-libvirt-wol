@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 #    LibVirt Wake On Lan
 #    Copyright (C) 2012 Simon Cadman
 #
@@ -15,7 +15,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    dmacias - added fixes for ether proto 0x0842
-import pcap
+from pylibpcap import OpenPcap
 import sys
 import socket
 import struct
@@ -147,12 +147,13 @@ if __name__ == '__main__':
         sys.exit(0)
 
     interface = sys.argv[1]
-    p = pcap.pcapObject()
+    p = OpenPcap("pcap.pcap", "a")
     net, mask = pcap.lookupnet(interface)
     # set promiscuous to 1 so all packets are captured
     p.open_live(interface, 1600, 1, 100)
     # added support for ether proto 0x0842
     p.setfilter('udp port 7 or udp port 9 or ether proto 0x0842', 0, 0)
+    p.write(buf)
 
     while True:
         try:

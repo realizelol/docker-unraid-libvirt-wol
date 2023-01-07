@@ -1,5 +1,5 @@
 #     https://hub.docker.com/_/python/tags?page=1&ordering=-name&name=2-alpine
-FROM  python:2-alpine
+FROM  python:3-alpine
 LABEL maintainer="realizelol"                                                                                                                                   \
       name="realizelol/unraid-libvirt-wol"                                                                                                                      \
       description="Docker for wake up vms via libvirt on unraid host."                                                                                          \
@@ -15,9 +15,10 @@ COPY ./app /app
 # install needed packages etc.
 RUN rm -rf /var/cache/apk/*                                                                                                                                 &&  \
     apk upgrade --latest --update-cache                                                                                                                     &&  \
-    apk add --update-cache libvirt-dev libxml2-dev libpcap libpcap-dev python-dev libffi-dev build-base bash curl                                           &&  \
+    apk add --update-cache libxml2-dev python-dev libffi-dev build-base bash curl                                                                           &&  \
     pip install --upgrade pip --no-cache-dir                                                                                                                &&  \
-    pip install --upgrade Cython pycparser cffi libpcap==1.10.0b5 libvirt-python==5.10.0 pypcap python-libpcap --no-cache-dir                               &&  \
+    pip install --upgrade Cython pycparser cffi libvirt-python python-libpcap --no-cache-dir                                                                &&  \
+    apk remove build-base                                                                                                                                   &&  \
     pip cache purge                                                                                                                                         &&  \
     rm -rf /root/.cache /var/cache/apk/*                                                                                                                    &&  \
     chmod +x /app/*.py /app/*.sh                                                                                                                            &&  \
