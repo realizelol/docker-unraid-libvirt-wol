@@ -163,6 +163,27 @@ def recv(port=9, addr="192.168.9.246", buf_size=1024):
     s.close()
     return data
 
+import socket
+import time
+import multiprocessing
+def worker(udp_ip, udp_port, response_buffer_size):
+    MESSAGE = b"Bazinga!"
+
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.connect((udp_ip, udp_port))
+    s.send(MESSAGE.encode())
+    print("Message sent.")
+
+    response_count = 1
+    while True:
+        response = s.recv(response_buffer_size).decode()
+        if len(response) == 0: break
+        print("[response]", response_count, ":", response)
+        response_count += 1
+    # If we got here, the connection was closed
+    s.close()
+    print("Socket closed.")
+
 if __name__ == '__main__':
     from lvwolutils import Utils
     Utils.SetupLogging()
@@ -197,8 +218,25 @@ if __name__ == '__main__':
     #print("received[buf]: " + data)
     #pdata = pktlen, data, timestamp
 
-    pack = recv
-    pack()
+    UDP_IP = '192.168.9.246'
+    UDP_PORT = 9
+    BUFFER_SIZE = 1024
+
+    p = multiprocessing.Process(target=worker, args=(UDP_IP, UDP_PORT, BUFFER_SIZE))
+    p.start()
+    p.join(3)
+
+    #if p.is_alive():
+        #print("Killing thread ...")
+        #p.terminate()
+        #p.join()
+        #print("Thread terminated.")
+
+    #print("Goodbye.")
+
+
+    #pack = recv
+    #pack()
     while True:
         print(pack)
         logging("pack: %s", pack)
