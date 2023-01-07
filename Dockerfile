@@ -15,14 +15,7 @@ RUN rm -rf /var/cache/apk/*                                                     
     pip install --upgrade pip --no-cache-dir                                                                                                                &&  \
     pip install --upgrade Cython pycparser cffi libpcap==1.10.0b5 libvirt-python==5.10.0 pypcap --no-cache-dir                                              &&  \
     pip cache purge                                                                                                                                         &&  \
-    rm -rf /root/.cache /var/cache/apk/*                                                                                                                    &&  \
-    mkdir -p /app                                                                                                                                           &&  \
-    curl -sSL https://raw.githubusercontent.com/dmacias72/unRAID-libvirtwol/master/source/libvirtwol/usr/local/emhttp/plugins/libvirtwol/scripts/libvirtwol.py  \
-      -o /app/libvirt.py                                                                                                                                    &&  \
-    curl -sSL https://raw.githubusercontent.com/dmacias72/unRAID-libvirtwol/master/source/libvirtwol/usr/local/emhttp/plugins/libvirtwol/scripts/lvwolutils.py  \
-      -o /app/lvwolutils.py                                                                                                                                 &&  \
-    curl -sSL https://raw.githubusercontent.com/dmacias72/unRAID-libvirtwol/master/source/libvirtwol/usr/local/emhttp/plugins/libvirtwol/scripts/lvwolutils.pyc \
-      -o /app/lvwolutils.pyc
+    rm -rf /root/.cache /var/cache/apk/*
 
 WORKDIR /app
 COPY .  /app
