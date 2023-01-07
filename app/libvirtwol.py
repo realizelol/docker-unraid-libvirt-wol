@@ -199,6 +199,8 @@ if __name__ == '__main__':
 
     pack = recv()
     while True:
+        print(pack)
+        logging("pack: %s", pack)
         try:
             LibVirtWakeOnLan.InspectIPPacket(pack)
         except KeyboardInterrupt:
