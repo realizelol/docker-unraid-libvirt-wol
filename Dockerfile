@@ -9,6 +9,10 @@ LABEL maintainer="realizelol"                                                   
       vcs-ref=$VCS_REF                                                                                                                                          \
       build-date=$BUILD_DATE
 
+# copy "app" content to container's /app
+COPY app/* /app
+
+# install needed packages etc.
 RUN rm -rf /var/cache/apk/*                                                                                                                                 &&  \
     apk upgrade --latest --update-cache                                                                                                                     &&  \
     apk add --update-cache libvirt-dev libxml2-dev libpcap-dev python-dev libffi-dev build-base curl                                                        &&  \
@@ -16,9 +20,7 @@ RUN rm -rf /var/cache/apk/*                                                     
     pip install --upgrade Cython pycparser cffi libpcap==1.10.0b5 libvirt-python==5.10.0 pypcap --no-cache-dir                                              &&  \
     pip cache purge                                                                                                                                         &&  \
     rm -rf /root/.cache /var/cache/apk/*                                                                                                                    &&  \
-    mkdir -p /app
-
-COPY app/* /app
+    chmod +x /app/*.{sh,py}
 
 # volumes
 VOLUME ["/var/run/libvirt/libvirt-sock"]
@@ -26,7 +28,5 @@ VOLUME ["/var/run/libvirt/libvirt-sock"]
 # listen to port 9/udp
 EXPOSE 9/udp
 
-# entrypoint - always keep everything up2date
-#CMD ["apk", "upgrade", "--latest", "--update-cache"]
-
-CMD ["python2", "/app/libvirt.py", "enp0s17"]
+# entrypoint - always keep everything up2date and then start libvirtwol.py
+ENTRYPOINT /app/docker-entrypoint.sh python2 /app/libvirtwol.py enp0s17
