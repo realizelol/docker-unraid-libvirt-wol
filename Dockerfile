@@ -10,8 +10,8 @@ LABEL maintainer="realizelol"                                                   
       build-date=$BUILD_DATE
 
 RUN rm -rf /var/cache/apk/*                                                                                                                                          &&  \
-    apk upgrade --latest --update-cache                                                                                                                              &&  \
-    apk add --update-cache py-pip libvirt-dev libxml2-dev libpcap-dev curl                                                                                           &&  \
+    apk upgrade --latest --update-cache -y                                                                                                                           &&  \
+    apk add --update-cache -y py-pip libvirt-dev libxml2-dev libpcap-dev curl                                                                                        &&  \
     rm -rf /root/.cache /var/cache/apk/*                                                                                                                             &&  \
     mkdir -p /app                                                                                                                                                    &&  \
     /usr/bin/curl -sSL https://raw.githubusercontent.com/dmacias72/unRAID-libvirtwol/master/source/libvirtwol/usr/local/emhttp/plugins/libvirtwol/scripts/libvirtwol.py  \
@@ -31,6 +31,6 @@ VOLUME ["/var/run/libvirt/libvirt-sock"]
 EXPOSE 9/udp
 
 # entrypoint - always keep everything up2date
-ENTRYPOINT ["apk upgrade", "--latest", "--update-cache"]
+ENTRYPOINT ["apk", "upgrade", "--latest", "--update-cache", "-y"]
 
 CMD ["/usr/bin/python", "/app/libvirt.py", "br0"]
