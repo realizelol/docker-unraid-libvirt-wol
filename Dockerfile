@@ -17,8 +17,8 @@ RUN rm -rf /var/cache/apk/*                                                     
     pip cache purge                                                                                                                                         &&  \
     rm -rf /root/.cache /var/cache/apk/*
 
-WORKDIR /app
-COPY .  /app
+WORKDIR    /app
+COPY ./app /app
 
 # volumes
 VOLUME ["/var/run/libvirt/libvirt-sock"]
