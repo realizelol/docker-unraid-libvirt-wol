@@ -15,15 +15,15 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    dmacias - added fixes for ether proto 0x0842
-from pylibpcap import OpenPcap
 import sys
+import pcap
 import socket
 import struct
 import string
 import libvirt
 import logging
 from xml.dom import minidom
-
+from pylibpcap import OpenPcap
 
 class LibVirtWakeOnLan:
 
@@ -148,7 +148,7 @@ if __name__ == '__main__':
 
     interface = sys.argv[1]
     p = OpenPcap("pcap.pcap", "a")
-    net, mask = p.lookupnet(interface)
+    net, mask = pcap.lookupnet(interface)
     # set promiscuous to 1 so all packets are captured
     p.open_live(interface, 1600, 1, 100)
     # added support for ether proto 0x0842
