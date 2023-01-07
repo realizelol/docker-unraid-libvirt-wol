@@ -147,7 +147,7 @@ if __name__ == '__main__':
         sys.exit(0)
 
     interface = sys.argv[1]
-    p = pcap.pcap()
+    p = pcap.pcapObject()
     net, mask = pcap.lookupnet(interface)
     # set promiscuous to 1 so all packets are captured
     p.open_live(interface, 1600, 1, 100)
