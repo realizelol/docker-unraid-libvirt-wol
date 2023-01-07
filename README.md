@@ -18,7 +18,7 @@ WiP
 
 <br>
 
-### Creditz and thank you to dmacias72
+### Creditz and thank you to dmacias72 for unRAID-libvirtwol
 https://github.com/dmacias72/unRAID-libvirtwol/
 
 
