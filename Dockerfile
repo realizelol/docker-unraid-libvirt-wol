@@ -20,7 +20,7 @@ RUN rm -rf /var/cache/apk/*                                                     
     pip install --upgrade Cython pycparser cffi libpcap==1.10.0b5 libvirt-python==5.10.0 pypcap --no-cache-dir                                              &&  \
     pip cache purge                                                                                                                                         &&  \
     rm -rf /root/.cache /var/cache/apk/*                                                                                                                    &&  \
-    chmod +x /app/*.{py,sh}
+    chmod +x /app/*.py /app/*.sh
 
 # volumes
 VOLUME ["/var/run/libvirt/libvirt-sock"]
