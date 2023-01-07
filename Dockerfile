@@ -18,7 +18,7 @@ RUN rm -rf /var/cache/apk/*                                                     
     rm -rf /root/.cache /var/cache/apk/*
 
 WORKDIR /app
-COPY    .  .
+COPY ./app .
 
 # volumes
 VOLUME ["/var/run/libvirt/libvirt-sock"]
