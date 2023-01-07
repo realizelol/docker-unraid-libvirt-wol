@@ -15,10 +15,11 @@ RUN rm -rf /var/cache/apk/*                                                     
     pip install --upgrade pip --no-cache-dir                                                                                                                &&  \
     pip install --upgrade Cython pycparser cffi libpcap==1.10.0b5 libvirt-python==5.10.0 pypcap --no-cache-dir                                              &&  \
     pip cache purge                                                                                                                                         &&  \
-    rm -rf /root/.cache /var/cache/apk/*
+    rm -rf /root/.cache /var/cache/apk/*                                                                                                                    &&  \
+    mkdir -p /app
 
 WORKDIR /app
-COPY ./app .
+COPY .  /app
 
 # volumes
 VOLUME ["/var/run/libvirt/libvirt-sock"]
@@ -29,4 +30,4 @@ EXPOSE 9/udp
 # entrypoint - always keep everything up2date
 #CMD ["apk", "upgrade", "--latest", "--update-cache"]
 
-ENTRYPOINT ["python2", "/app/libvirt.py", "br0"]
+ENTRYPOINT ["python2", "/app/libvirt.py", "enp0s17"]
