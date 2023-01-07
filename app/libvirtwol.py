@@ -238,10 +238,10 @@ if __name__ == '__main__':
     #pack = recv
     #pack()
     while True:
-        print(pack)
-        logging("pack: %s", pack)
+        print(p)
+        logging("pack: %s", p)
         try:
-            LibVirtWakeOnLan.InspectIPPacket(pack)
+            LibVirtWakeOnLan.InspectIPPacket(p)
         except KeyboardInterrupt:
             break
         except Exception:
