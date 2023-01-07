@@ -46,6 +46,6 @@ class Utils(object):
     @staticmethod
     def ShowVersion(Version):
         if len(sys.argv) == 2 and sys.argv[1] == 'version':
-            print "LibVirt Wake-On-Lan Version " + Version
+            print("LibVirt Wake-On-Lan Version " + Version)
             sys.exit(0)
         return False
