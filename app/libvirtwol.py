@@ -160,6 +160,9 @@ if __name__ == '__main__':
     netfilter = "udp port 9 or ether proto 0x0842"
 
     plen, t, buf = sniff(interface, filters=netfilter, count=-1, promisc=1)
+    print("received[plen]: " + plen)
+    print("received[t]: " + t)
+    print("received[buf]: " + buf)
     while True:
         try:
             wpcap(buf, LibVirtWakeOnLan.InspectIPPacket)
