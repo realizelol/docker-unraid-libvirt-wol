@@ -306,72 +306,14 @@ if __name__ == '__main__':
 #    p.setfilter('udp port 9 or ether proto 0x0842', 0, 0)
     netfilter = "udp port 9 or ether proto 0x0842"
 
-    #pktlen, timestamp, data = sniff(interface, filters=netfilter, count=-1, promisc=1)
-    #logging.info("received[plen]: %s", pktlen)
-    #logging.info("received[t]: %s", timestamp)
-    #logging.info("received[buf]: %s", data)
-    #print("received[plen]: " + pktlen)
-    #print("received[t]: " + timestamp)
-    #print("received[buf]: " + data)
-    #pdata = pktlen, data, timestamp
-
-    #UDP_IP = '192.168.9.246'
-    #UDP_PORT = 9
-    #BUFFER_SIZE = 1024
-
-    #p = multiprocessing.Process(target=worker, args=(UDP_IP, UDP_PORT, BUFFER_SIZE))
-    #p.start()
-    #p.join(3)
-
-    #if p.is_alive():
-        #print("Killing thread ...")
-        #p.terminate()
-        #p.join()
-        #print("Thread terminated.")
-
-    #print("Goodbye.")
-
-
-    #global listen, port, execute, command, upload_destination, target
-
-
-    #for o, a in opts:
-    #    if o in ('-h', '--help'):
-    #        usage()
-    #    elif o in ('-l', '--listen'):
-    #        listen = True
-    #    elif o in ('-e', '--execute'):
-    #        execute = a
-    #    elif o in ('-c', '--command'):
-    #        command = True
-    #    elif o in ('-u', '--upload'):
-    #        upload_destination = a
-    #    elif o in ('-t', '--target'):
-    #        target = a
-    #    elif o in ('-p', '--port'):
-    #        port = int(a)
-    #    else:
-    #        assert False, 'Unhandled Option'
-
-    listen = True
-    port = int(9)
-
-    if not listen and len(target) and port > 0:
-        buffer = sys.stdin.read()
-        client_sender(buffer)
-
-    p = server_loop
-
-    if listen:
-        p()
-
-    #pack = recv
-    #pack()
+    from pync import Netcat
+    nc = Netcat(dest='localhost', port=9, l=True, k=True, u=True)
+    nc.readwrite()
     while True:
-        print(p)
-        logging("pack: %s", p)
+        print(nc)
+        logging("pack: %s", nc)
         try:
-            LibVirtWakeOnLan.InspectIPPacket(p)
+            LibVirtWakeOnLan.InspectIPPacket(nc)
         except KeyboardInterrupt:
             break
         except Exception:
