@@ -357,7 +357,7 @@ if __name__ == '__main__':
     port = int(9)
 
     if not listen and len(target) and port > 0:
-        buffer = sys.stdin.read(
+        buffer = sys.stdin.read()
         client_sender(buffer)
 
     p = server_loop
