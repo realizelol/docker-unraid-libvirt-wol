@@ -194,14 +194,14 @@ def client_sender(buffer):
                 if recv_len < 4096:
                     break
 
-            print response
+            print(response)
 
             buffer = raw_input('')
             buffer += '\n'
 
             client.send(buffer)
     except:
-        print 'Exception. Exiting'
+        print('Exception. Exiting')
         client.close()
 
 
@@ -360,8 +360,10 @@ if __name__ == '__main__':
         buffer = sys.stdin.read(
         client_sender(buffer)
 
+    p = server_loop
+
     if listen:
-        server_loop()
+        p()
 
     #pack = recv
     #pack()
